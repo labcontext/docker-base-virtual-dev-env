@@ -9,6 +9,7 @@ run_bash:
 build_image_again:
 	#for build
 	sudo docker kill $(IMAGE_NAME) 
+	sudo docker rm $(IMAGE_NAME)
 	sudo docker rmi $(IMAGE_NAME)
 	sudo docker build -t $(IMAGE_NAME) .
 	#  					     "/home/username/..."
@@ -26,7 +27,6 @@ build_only_image:
 
 build_first_time:
 	#for build
-	#mkdir /usr/lib/systemd/system
 	
 	sudo apt-get remove docker docker-engine docker.io
 	sudo apt-get purge docker*
@@ -38,6 +38,8 @@ build_first_time:
 	sudo apt-get update	
 	sudo apt install docker-ce
 	sudo apt-get install docker docker-engine docker.io
+
+	sudo mkdir /usr/lib/systemd/system
 
 	sudo echo "[Unit]\n\
 	Description=NVIDIA Persistence Daemon\n\
