@@ -162,6 +162,6 @@ RUN cd /opt/pycharm
 RUN wget https://download.jetbrains.com/python/pycharm-community-2019.1.tar.gz
 RUN tar -xvzf pycharm-community-2019.1.tar.gz
 RUN mv /pycharm-community-2019.1 /opt/pycharm/pycharm-community-2019.1
-RUN alias pycharm-cm='sh /opt/pycharm/pycharm-community-2019.1/bin/pycharm.sh'
+#RUN alias pycharm-cm='sh /opt/pycharm/pycharm-community-2019.1/bin/pycharm.sh'
 
 
