@@ -156,12 +156,15 @@ RUN cd /opencv/build && \
 
 RUN pip3 install opencv-python
 RUN apt-get install -qqy x11-apps
+RUN apt-get -y install gedit
 
 RUN mkdir /opt/pycharm
 RUN cd /opt/pycharm
 RUN wget https://download.jetbrains.com/python/pycharm-community-2019.1.tar.gz
 RUN tar -xvzf pycharm-community-2019.1.tar.gz
-RUN mv /pycharm-community-2019.1 /opt/pycharm/pycharm-community-2019.1
-#RUN alias pycharm-cm='sh /opt/pycharm/pycharm-community-2019.1/bin/pycharm.sh'
 
+RUN mv /pycharm-community-2019.1 /opt/pycharm/pycharm-community-2019.1
+
+RUN echo "alias pycharm-cm='sh /opt/pycharm/pycharm-community-2019.1/bin/pycharm.sh'" >> /root/.bashrc
+RUN source /root/.bashrc
 

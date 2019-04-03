@@ -31,11 +31,11 @@ git
 
 CUDA 9.0
 
-CuDnn 7.0
+CuDnn 7.4.2.24
 
 python 3.5
 
-tensorflow latest
+tensorflow:1.9.0
 
 keras latest
 
