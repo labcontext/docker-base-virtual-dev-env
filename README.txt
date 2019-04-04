@@ -6,13 +6,14 @@ docker와 makefile을 이용해 bash에 명령어를 3번만 입력하면
 
 # 해당 가상환경을 사용하기 위해 필요한 개발환경
 
-적어도 
+적어도 ubuntu 또는 debian계열 리눅스가 설치된 PC
 
-ubuntu 또는 debian계열 리눅스가 설치된 PC
+그리고 해당 운영체제와 사용중인 GPU에 맞는 그래픽카드 드라이버지는 설치가 완료
 
-그리고 해당 운영체제와 사용중인 GPU에 맞는 그래픽카드 드라이버 정도 까지는 설치가 되어있다는 가정아래
+(CUDA, CUdnn 설치 불필요 => 자동으로 적합 버전에 맞는 docker container 설정)
 
-작성된 자동화 makefile 과 dockerfile 입니다.
+
+자동화 makefile 과 dockerfile 입니다.
 
 
 # 자동으로 설치되는 가상머신의 개발환경 
@@ -21,27 +22,23 @@ ubuntu 16.04
 
 docker-ce
 
-docker-engine
-
-dodocker-io
-
-nvidia-docker2
-
 git
 
 CUDA 9.0
 
 CuDnn 7.4.2.24
 
+OPENCV 3.4.2
+
 python 3.5
 
-tensorflow:1.9.0
+tensorflow 1.9.0
 
-keras latest
+keras 2.1.6 (2.2.4에 연산오류가 많아 안정적 버전으로 다운그레이드)
 
 opencv 3.4.2 customed
 
-etc.....
+etc(다양한 서브 패키지).....
 
 # 실행 순서
 

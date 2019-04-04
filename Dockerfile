@@ -120,7 +120,7 @@ RUN ${PIP} install ${TF_PACKAGE}${TF_PACKAGE_VERSION:+==${TF_PACKAGE_VERSION}}
 #COPY bashrc /etc/bash.bashrc
 #RUN chmod a+rwx /etc/bash.bashrc
 
-RUN pip3 install keras
+RUN pip3 install keras==2.1.6
 RUN pip3 install --upgrade pip
 
 RUN wget https://bootstrap.pypa.io/get-pip.py && \
@@ -155,6 +155,7 @@ RUN cd /opencv/build && \
 
 
 RUN pip3 install opencv-python
+RUN pip3 install scikit-image Pillow
 RUN apt-get install -qqy x11-apps
 RUN apt-get -y install gedit
 
