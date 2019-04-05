@@ -96,6 +96,7 @@ docker container를 test할때는 -d를 지우고 실행하여도 무방, docker
 sudo docker exec -ti $(IMAGE_NAME) /bin/bash
 </code></pre>
 
+dokcer container 내부의 bash console을 하나 실행합니다. 
 
 # 가상머신 사용간 문제 발생시
 
