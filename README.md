@@ -100,9 +100,14 @@ dokcer container 내부의 bash console을 하나 실행합니다.
 
 # 가상머신 사용간 문제 발생시
 
+<pre><code>
 sudo make build_image_again
-또는 
-sudo sh erase_all_images_containers.sh
-sudo make build_image_again
+</code></pre>
 
+또는 
+
+<pre><code>
+sudo sh erase_all_images_containers.sh &&
+sudo make build_image_again
+</code></pre>
 erase_all_images_containers.sh는 활성화되어 있지 않은 모든 image와 containers를 지웁니다.
