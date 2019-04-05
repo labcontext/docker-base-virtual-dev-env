@@ -153,9 +153,26 @@ RUN cd /opencv/build && \
     make install && \
     ldconfig
 
+RUN pip3 install opencv-python opencv-contrib-python
+RUN pip3 install scipy scikit-learn scikit-image Pillow
+#RUN pip3 install dlib==19.15.0
 
-RUN pip3 install opencv-python
-RUN pip3 install scikit-image Pillow
+RUN wget http://dlib.net/files/dlib-19.15.tar.bz2
+RUN tar xvf dlib-19.15.tar.bz2
+RUN ls
+RUN cd dlib-19.15 && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    cmake --build . --config Release && \
+    make install && \
+    ldconfig
+
+RUN cd ..
+RUN pkg-config --libs --cflags dlib-1
+RUN cd dlib-19.15 && \
+    python3 setup.py install
+
 RUN apt-get install -qqy x11-apps
 RUN apt-get -y install gedit
 

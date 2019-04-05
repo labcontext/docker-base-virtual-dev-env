@@ -14,7 +14,7 @@ build_image_again:
 	sudo docker rmi $(IMAGE_NAME)
 	sudo docker build -t $(IMAGE_NAME) .
 	#  					     "/home/username/..."
-	sudo docker run -d --runtime=nvidia --volume="/home/$(USER)/.Xauthority:/root/.Xauthority:rw" --env="DISPLAY" --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
+	sudo docker run -d --runtime=nvidia -v /home/$(USER)/:/home/$(USER)/ -v /home/$(USER)/.Xauthority:/root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
 
 build_only_image:
 
@@ -24,22 +24,29 @@ build_only_image:
 	#for build
 	sudo docker build -t $(IMAGE_NAME) .
 	#  					     "/home/username/..."
-	sudo docker run -d --runtime=nvidia --volume="/home/$(USER)/.Xauthority:/root/.Xauthority:rw" --env="DISPLAY" --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
+#	sudo docker run -d --runtime=nvidia --volume="/home/$(USER)/.Xauthority:/root/.Xauthority:rw" --#env="DISPLAY" --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
+
+	sudo docker run -d --runtime=nvidia -v /home/$(USER)/:/home/$(USER)/ -v /home/$(USER)/.Xauthority:/root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
+
+#sudo docker run -d --runtime=nvidia -v /home/$(USER)/recognition_research/:/CODE/ -v /home/$(USER)/.Xauthority:/#root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name #$(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
 
 build_first_time:
 	#for build
-	
-	sudo apt-get remove docker docker-engine docker.io
+	#sudo apt-get remove docker docker-engine docker.io
+	sudo apt-get -f install
 	sudo apt-get purge docker*
-
+	sudo apt-get update
+	sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository \
-        "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
-
+	apt-key fingerprint 0EBFCD88
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	cat /etc/apt/sources.list | grep docker
 	sudo apt-get update	
+
 	sudo apt install -y docker-ce
+	#sudo groupadd docker
+	#sudo usermod -aG docker $ USER
 	#sudo apt-get install -y docker docker-engine docker.io
-	
 	#docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi 이 실행되지 않으므로 아래 서비스등록을 실행해야함
 	sudo rm -Rf /usr/lib/systemd/system
 	sudo mkdir /usr/lib/systemd/system
@@ -85,7 +92,7 @@ build_first_time:
 	sudo docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
 	sudo docker build -t $(IMAGE_NAME) .	
 	#  					     "/home/username/...
-	sudo docker run -d --runtime=nvidia --volume="/home/$(USER)/.Xauthority:/root/.Xauthority:rw" --env="DISPLAY" --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
+	sudo docker run -d --runtime=nvidia -v /home/$(USER)/:/home/$(USER)/ -v /home/$(USER)/.Xauthority:/root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
 
 
 #how to transfer files 
