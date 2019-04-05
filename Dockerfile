@@ -15,9 +15,6 @@ ARG CUDA
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer "omelisra123@gmail.com"
 
-#check OPENCV_VERSION
-ENV OPENCV_VERSION 3.4.2
-
 RUN apt-get update && \
     apt-get -y install \
     build-essential \
@@ -123,6 +120,9 @@ RUN ${PIP} install ${TF_PACKAGE}${TF_PACKAGE_VERSION:+==${TF_PACKAGE_VERSION}}
 RUN pip3 install keras==2.1.6
 RUN pip3 install --upgrade pip
 
+#check OPENCV_VERSION
+ENV OPENCV_VERSION 3.4.2
+
 RUN wget https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py && \
@@ -155,8 +155,8 @@ RUN cd /opencv/build && \
 
 RUN pip3 install opencv-python opencv-contrib-python
 RUN pip3 install scipy scikit-learn scikit-image Pillow
-#RUN pip3 install dlib==19.15.0
 
+#dlib==19.15.0
 RUN wget http://dlib.net/files/dlib-19.15.tar.bz2
 RUN tar xvf dlib-19.15.tar.bz2
 RUN ls
@@ -186,3 +186,7 @@ RUN mv /pycharm-community-2019.1 /opt/pycharm/pycharm-community-2019.1
 RUN echo "alias pycharm-cm='sh /opt/pycharm/pycharm-community-2019.1/bin/pycharm.sh'" >> /root/.bashrc
 RUN source /root/.bashrc
 
+RUN wget https://github.com/pytorch/pytorch
+RUN pip3 install numpy pyyaml mkl mkl-include setuptools cmake cffi typing
+RUN cd pytorch
+RUN pip3 install torch torchvision
