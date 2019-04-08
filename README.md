@@ -57,15 +57,15 @@ etc(다양한 서브 패키지, 서드파티 프로그램).....
 
 해당명령의경우 docker, nvidia-docker를 비롯한 도커 설치에 필요한 패키지, 환경설정 그래픽카드 설정 등을 자동으로 잡아주고 설치해줍니다. 또한 가상머신을 빌드하고 docker container를 백그라운드에 실행시킵니다. 설치간 발생가능 한 이슈에 대해 최대한 자동을 대응되도록 스트립트를 작성하였으나 문제 발생시 error 뒤에 나오는 것을 복사 후 구글에 검색하면 보통 3~5번째 글 안에서 비슷한 이슈와 그 솔루션이 나옵니다.
 
-- sudo make build_only_image
+- make build_only_image
 
 기존에 docker와 nvidia-docker를 사용중이실경우에 한하여 해당 명령을 입력하시면 해당 프로그램들에 대한 설정, 설치 등을 생략하고 바로 docker container를 빌드하고 백드라운드에 실행시킵니다.
 
-- sudo make build_image_again
+- make build_image_again
 
 사용중인 docker와 관련하여, dockerfile에 수정사항이 발생하였을때, container를 사용하던중에 의존성오류 및 가상머신 실행간 의존성오류 등 크리티컬한 오류가 발생하였을 경우 해당 명령을 입력하시면 기존에 실행되고있는 docker container를 kill 하고 지운후 다시 처음부터 빌드합니다. 빌드후 새로운 docker container를 백그라운드에 실행시킵니다.
 
-- sudo make run_bash
+- make run_bash
 
 해당 명령은 위 3개중 하나의 build과정을 성공적으로 마쳤을 경우 백그라운드에서 WAIT중인 docker container에 대한 bash를 실행시킵니다.
 

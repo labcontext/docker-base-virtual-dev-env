@@ -3,8 +3,6 @@
 IMAGE_NAME=base_env_cuda9_deep_learning
 USER_NAME = $(USER)
 
-run_test:
-	echo $(USER_NAME)
 run_bash:
 	#GUI POSSIBLE
 	#sudo docker start $(IMAGE_NAME)
@@ -42,8 +40,8 @@ build_first_time:
 	#apt-get update  
 	sudo add-apt-repository -y ppa:mc3man/xerus-media
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CF9BDC6F03D1F02B
-	gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv 9BDB3D89CE49EC21
-	gpg --export --armor 9BDB3D89CE49EC21 | sudo apt-key add -
+	sudo gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv 9BDB3D89CE49EC21
+	sudo gpg --export --armor 9BDB3D89CE49EC21 | sudo apt-key add -
 	sudo apt-get -f install
 	sudo apt-get purge docker*
 	sudo apt-get upgrade -y
@@ -58,8 +56,8 @@ build_first_time:
 	sudo apt-get update	
 
 	sudo apt install -y docker-ce
-	#sudo groupadd docker
-	#sudo usermod -aG docker $ USER
+	sudo groupadd docker
+	sudo usermod -aG docker $(USER_NAME)
 	#sudo apt-get install -y docker docker-engine docker.io
 	#docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi 이 실행되지 않으므로 아래 서비스등록을 실행해야함
 	sudo rm -Rf /usr/lib/systemd/system
