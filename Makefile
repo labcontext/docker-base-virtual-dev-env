@@ -1,6 +1,6 @@
 # set name for envirments you want
 
-IMAGE_NAME=base_p35_c90
+IMAGE_NAME=base_env_cuda9_deep_learning
 USER_NAME = $(USER)
 
 run_test:
@@ -8,6 +8,7 @@ run_test:
 run_bash:
 	#GUI POSSIBLE
 	#sudo docker start $(IMAGE_NAME)
+	sudo docker start $(IMAGE_NAME)
 	sudo docker exec -ti $(IMAGE_NAME) /bin/bash
 
 build_image_again:
@@ -16,8 +17,7 @@ build_image_again:
 	sudo docker rm $(IMAGE_NAME)
 	sudo docker rmi $(IMAGE_NAME)
 	sudo docker build -t $(IMAGE_NAME) .
-	#  					     "/home/username/..."
-	sudo docker run -d--runtime=nvidia -v /:/host_data/ -v /home/$(USER_NAME)/.Xauthority:/root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
+	sudo docker run --runtime=nvidia -v /:/host_data/ --privileged -v /dev/:/dev/ -v /home/$(USER_NAME)/.Xauthority:/root/.Xauthority:rw --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
 
 build_only_image:
 
@@ -28,12 +28,9 @@ build_only_image:
 	sudo docker build -t $(IMAGE_NAME) .
 	sudo docker run --runtime=nvidia -v /:/host_data/ --privileged -v /dev/:/dev/ -v /home/$(USER_NAME)/.Xauthority:/root/.Xauthority:rw --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
 
-	#  					     "/home/username/..."
-#	sudo docker run -d --runtime=nvidia --volume="/home/$(USER)/.Xauthority:/root/.Xauthority:rw" --#env="DISPLAY" --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
-
+	#sudo docker run -d --runtime=nvidia --volume="/home/$(USER)/.Xauthority:/root/.Xauthority:rw" --#env="DISPLAY" --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
 	#sudo docker run -d --runtime=nvidia -v /home/$(USER)/:/home/$(USER)/ -v /home/$(USER)/.Xauthority:/root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
-
-#sudo docker run -d --runtime=nvidia -v /home/$(USER)/recognition_research/:/CODE/ -v /home/$(USER)/.Xauthority:/#root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name #$(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
+	#sudo docker run -d --runtime=nvidia -v /home/$(USER)/recognition_research/:/CODE/ -v /home/$(USER)/.Xauthority:/#root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name #$(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
 
 build_first_time:
 	#for build
