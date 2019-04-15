@@ -1,7 +1,7 @@
 # set name for envirments you want
 
 IMAGE_NAME=base_env_cuda9_deep_learning
-USER_NAME = $(USER)
+USER_NAME=$(USER)
 
 run_bash:
 	#GUI POSSIBLE
@@ -48,7 +48,7 @@ build_first_time:
 	sudo apt-get update
 	sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	apt-key fingerprint 0EBFCD88
+	sudo apt-key fingerprint 0EBFCD88
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 762E3157
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ACCAF35C
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
@@ -56,8 +56,8 @@ build_first_time:
 	sudo apt-get update	
 
 	sudo apt install -y docker-ce
-	sudo groupadd docker
-	sudo usermod -aG docker $(USER_NAME)
+	#sudo groupadd docker
+	#sudo usermod -aG docker $(USER_NAME)
 	#sudo apt-get install -y docker docker-engine docker.io
 	#docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi 이 실행되지 않으므로 아래 서비스등록을 실행해야함
 	sudo rm -Rf /usr/lib/systemd/system
@@ -93,7 +93,7 @@ build_first_time:
 	curl -s -L https://nvidia.github.io/nvidia-docker/ubuntu16.04/amd64/nvidia-docker.list | \
 	sudo tee /etc/apt/sources.list.d/nvidia-docker.list 
 	sudo apt-get update
-	gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv 9BDB3D89CE49EC21
+	sudo gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv 9BDB3D89CE49EC21
 	sudo apt-get update
 
 	#sudo apt-get install -y nvidia-docker

@@ -9,6 +9,7 @@ docker와 makefile을 이용해 bash에 명령어를 1~3번만 입력하면
 
 # 해당 가상환경을 사용하기 위해 필요한 개발환경
 
+
 적어도 ubuntu 또는 debian계열 리눅스 또는 해당 bash가 설치된 PC
 
 그리고 해당 운영체제와 사용중인 GPU에 맞는 그래픽카드 드라이버지는 설치 완료된 상태
@@ -17,6 +18,7 @@ docker와 makefile을 이용해 bash에 명령어를 1~3번만 입력하면
 
 
 # 자동으로 설치되는 가상머신의 개발환경 
+
 
 ubuntu 16.04
 
@@ -51,9 +53,10 @@ etc(다양한 서브 패키지, 서드파티 프로그램).....
 
 # 아래 해당 스크립트 실행 방법 및 설명
 
+
 일단, bash(명령어 콘솔 입력창)를 하나 실행합니다.
 
-- sudo make build_first_time
+- make build_first_time
 
 해당명령의경우 docker, nvidia-docker를 비롯한 도커 설치에 필요한 패키지, 환경설정 그래픽카드 설정 등을 자동으로 잡아주고 설치해줍니다. 또한 가상머신을 빌드하고 docker container를 백그라운드에 실행시킵니다. 설치간 발생가능 한 이슈에 대해 최대한 자동을 대응되도록 스트립트를 작성하였으나 문제 발생시 error 뒤에 나오는 것을 복사 후 구글에 검색하면 보통 3~5번째 글 안에서 비슷한 이슈와 그 솔루션이 나옵니다.
 
@@ -67,17 +70,18 @@ etc(다양한 서브 패키지, 서드파티 프로그램).....
 
 - make run_bash
 
-해당 명령은 위 3개중 하나의 build과정을 성공적으로 마쳤을 경우 백그라운드에서 WAIT중인 docker container에 대한 bash를 실행시킵니다.
+해당 명령은 위 3개중 하나의 build과정을 성공적으로 마쳤을 경우 백그라운드에서 WAIT중인 docker container에 대한 bash를 실행시킵니다. 사용을 마친 후, exit을 BASH 콘솔에 입력하여 종료합니다.
 
+make 명령을 sudo와 같이 사용시 Xwindow(GUI환경) 실행시 장애가 발생합니다.
+sudo를 생략하고 명령을 실행시킵니다. 
 
 # 사용방법 더 자세히 
+
 
 dockerfile을 열어보시면 나와있는 docker run 코드 부분을 이해하여, 직접 수정, 사용하기를 권장합니다.
 
 <pre><code>
-
 sudo docker run -d --runtime=nvidia -v /:/host_data/ -v /home/$(USER)/.Xauthority:/root/.Xauthority:rw --privileged -v /dev/:/dev/ --env "DISPLAY" --env QT_X11_NO_MITSHM=1 --net=host -ti --name $(IMAGE_NAME) $(IMAGE_NAME) /bin/bash
-
 </code></pre>
 
 - '-d' : 백그라운드에서 실행
